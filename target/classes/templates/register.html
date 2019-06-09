@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>register</title>
+
+    <style>
+        #header {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 5px;
+        }
+
+        #body {
+            line-height: 30px;
+            background-color: darkgrey;
+            color: white;
+            padding: 5px;
+            width: 60%;
+            height: 70%;
+            float: left;
+            align-content: center;
+            text-align: center;
+        }
+
+        #footer {
+            background-color: black;
+            color: white;
+            clear: both;
+            text-align: center;
+            padding: 5px;
+
+        }
+    </style>
+</head>
+<body>
+<div id="header">
+    <h1>FATTYU</h1>
+</div>
+<div id="body">
+    <h1>註冊</h1>
+    <form name="" action="/staff/doregister" method="post">
+        <table border="0">
+            <tr>
+                <td>用户名:</td>
+                <td><input type="text" name="name"><br></td>
+            </tr>
+            <tr>
+                <td>密码:</td>
+                <td><input type="password" name="password"><br></td>
+            </tr>
+
+        </table>
+        <td>
+            <select name="部门名称" id="departmentId">
+                <option th:each="department: ${departments}"
+                        th:value="${department.departmentName}"
+                        th:utext="${department.departmentName}">
+                </option>
+            </select>
+        </td>
+        <td>
+            <select name="position" id="postion">
+                <option value="staff">员工</option>
+                <option value="manage">经理</option>
+            </select>
+        </td>
+        <input type="submit" value="同意协议并注册"/>
+    </form>
+
+    <div>
+        <span>已有账号去</span><a href="/staff/login">登录</a>
+    </div>
+
+</div>
+
+<div id="footer">
+    Copyright ? fattyu.com
+</div>
+
+</body>
+</html>

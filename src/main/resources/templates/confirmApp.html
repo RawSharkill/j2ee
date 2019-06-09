@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <style>
+        #header {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 5px;
+        }
+
+        #footer {
+            background-color: black;
+            color: white;
+            clear: both;
+            text-align: center;
+            padding: 5px;
+
+        }
+
+        #bod {
+            background-color: darkgrey;
+            width: 60%;
+            height: 800px;
+            text-align: center;
+            margin: 0 auto;
+
+        }
+    </style>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js">
+    </script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="header">
+    <h1>FATTYU</h1>
+</div>
+<div id="bod">
+<h2>0-未处理  1-已处理</h2>
+    <table border="1" style="margin: 0 auto">
+        <!--行-->
+        <tr>
+            <th>申请号</th>
+            <th>记录号</th>
+            <th>申请人号</th>
+            <th>申请理由</th>
+            <th>公司号</th>
+            <th>申请时间</th>
+            <th>申请状态</th>
+            <th>修改</th>
+        </tr>
+        <tr th:each="app : ${apps}">
+            <th th:text="${app.appId}"></th>
+            <td th:text="${app.recordId}"></td>
+            <td th:text="${app.staffId}"></td>
+            <th th:text="${app.excuse}"></th>
+            <th th:text="${app.departmentId}"></th>
+            <th th:text="${app.appDay}"></th>
+            <th th:text="${app.state}"></th>
+            <td>
+                <button type="button" th:onclick="|check('${app.appId}','${app.recordId}')|">修改</button>
+            </td>
+        </tr>
+        <script>
+            //记得倒入jquery
+            function check(id) {
+                let input = prompt("输入理由");
+                //be careful, whatever user input, javascript will treat it as a
+                //"string", if you need a number, you need to use "parseIncheckt()"
+                //method to change String to Number. like the following:
+                //var b=parseInt(input) +1;
+                //alert(b);
+                $.ajax({
+                    type: "POST",
+                    data: {recordId: parseInt(id), reason: input},
+                    url: "http://localhost:8080/me/modify",
+                    success: function (data) {
+                        alert("发送成功")
+                    },
+                    error: function (data) {
+                        alert("认证失败");
+                    }
+                });
+            }
+        </script>
+    </table>
+    <!--<form name="" action="modify" method="post">-->
+        <!--<div>-->
+            <!--<label>记录Id</label>-->
+            <!--<input type="text" class="text" id="recordId" placeholder="记录Id" name="recordId" required tabindex="1">-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<input type="text" class="text" id="mod" placeholder="mod" name="mod" required tabindex="1">-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<label>回复信息</label><input type="text" class="text" id="rea" placeholder="回复" required name="reason"-->
+                                      <!--tabindex="2"><br>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div>-->
+            <!--<button type="submit" value="确认" id="confirm">确认</button>-->
+        <!--</div>-->
+    <!--</form>-->
+</div>
+<div id="footer">
+    Copyright ? fattyu.com
+</div>
+</body>
+</html>

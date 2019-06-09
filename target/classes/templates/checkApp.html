@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        #header {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 5px;
+        }
+
+        #footer {
+            background-color: black;
+            color: white;
+            clear: both;
+            text-align: center;
+            padding: 5px;
+
+        }
+
+        #bod {
+            background-color: darkgrey;
+            width: 60%;
+            height: 800px;
+            text-align: center;
+            margin: 0 auto;
+
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="header">
+    <h1>FATTYU</h1>
+</div>
+<div id="bod">
+
+    <div>
+        0-未处理
+        1-已通过
+    </div>
+    <table border="1" style="margin: 0 auto">
+        <!--行-->
+        <tr>
+            <th>申请号</th>
+            <th>记录号</th>
+            <th>申请人号</th>
+            <th>申请理由/回复</th>
+            <th>公司号</th>
+            <th>申请时间</th>
+            <th>申请状态</th>
+        </tr>
+        <tr th:each="app : ${apps}">
+            <th th:text="${app.appId}"></th>
+            <td th:text="${app.recordId}"></td>
+            <td th:text="${app.staffId}"></td>
+            <th th:text="${app.excuse}"></th>
+            <th th:text="${app.departmentId}"></th>
+            <th th:text="${app.appDay}"></th>
+            <th th:text="${app.state}"></th>
+        </tr>
+    </table>
+</div>
+<div id="footer">
+    Copyright ? fattyu.com
+</div>
+</body>
+
+</html>
